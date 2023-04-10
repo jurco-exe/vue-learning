@@ -1,8 +1,37 @@
 <template>
-	<div class="container text-center mt-5">
-		<h1>{{ name }} {{ age }}</h1>
-		<button @click="changeName('Jano')">Change Name</button>
-		<button @click="changeAge(30)">Change Age</button>
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col">
+				<div class="card bg-dark">
+					<div class="card-body">
+						<h5 class="card-title">{{ jobs[0].title }}</h5>
+						<p class="card-text">{{ jobs[0].location }}</p>
+						<p class="card-text">{{ jobs[0].salary }}</p>
+						<p class="card-text">{{ jobs[0].id }}</p>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card bg-dark">
+					<div class="card-body">
+						<h5 class="card-title">{{ jobs[1].title }}</h5>
+						<p class="card-text">{{ jobs[1].location }}</p>
+						<p class="card-text">{{ jobs[1].salary }}</p>
+						<p class="card-text">{{ jobs[1].id }}</p>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card bg-dark">
+					<div class="card-body">
+						<h5 class="card-title">{{ jobs[2].title }}</h5>
+						<p class="card-text">{{ jobs[2].location }}</p>
+						<p class="card-text">{{ jobs[2].salary }}</p>
+						<p class="card-text">{{ jobs[2].id }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -12,36 +41,46 @@
 // reactive => is used to create a reactive object,
 // toRefs => is used to convert a reactive object to a plain object with reactive properties.
 import { defineComponent, ref } from 'vue';
+import Job from './types/Job';
 
 export default defineComponent({
 	name: 'App',
-
-	// The components property is used to declare child components of this component. In this example, there are no child components.
 	components: {},
-
-	// The setup() function is a special function in Vue.js that allows you to set up the reactive data/Refs and functions for the component. It returns an object containing reactive properties.
 	setup() {
-		// The ref() function creates a reference to a value that can be reactive. In this case, name is a reference to the string value "Juraj" and age is a reference to the number value 25.
-		const name = ref('Juraj');
-		const age = ref<number | string>(25);
+		const jobs = ref<Job[]>([
+			{
+				title: 'farm worker',
+				location: 'lon lon ranch',
+				salary: 30000,
+				id: '1'
+			},
+			{
+				title: 'quarryman',
+				location: 'death mountain',
+				salary: 40000,
+				id: '2'
+			},
+			{
+				title: 'flute player',
+				location: 'the lost woods',
+				salary: 35000,
+				id: '3'
+			},
+			{
+				title: 'fisherman',
+				location: 'lake hylia',
+				salary: 21000,
+				id: '4'
+			},
+			{
+				title: 'prison guard',
+				location: 'gerudo walley',
+				salary: 32000,
+				id: '5'
+			}
+		]);
 
-		// The age.value and name.value lines update the values of age and name, respectively. The .value syntax is used to access the value of the reference.
-		age.value = 10;
-		name.value = 'Linda';
-
-		// The return { name, age } line returns an object containing the name and age references.
-		return { name, age };
-	},
-
-	// The methods object contains two functions, changeName() and changeAge(), which are used to change the name and age properties of the state object.
-	methods: {
-		changeName(name: string) {
-			this.name = name;
-		},
-
-		changeAge(age: string | number) {
-			this.age = age;
-		}
+		return { jobs };
 	}
 });
 </script>
