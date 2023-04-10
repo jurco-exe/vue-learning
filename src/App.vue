@@ -11,7 +11,7 @@
 // defineComponent => is used to define the component,
 // reactive => is used to create a reactive object,
 // toRefs => is used to convert a reactive object to a plain object with reactive properties.
-import { defineComponent, reactive, toRefs } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
 	name: 'App',
@@ -19,19 +19,18 @@ export default defineComponent({
 	// The components property is used to declare child components of this component. In this example, there are no child components.
 	components: {},
 
-	// The setup() function is a special function in Vue.js that allows you to set up the reactive data and functions for the component. It returns an object containing reactive properties.
+	// The setup() function is a special function in Vue.js that allows you to set up the reactive data/Refs and functions for the component. It returns an object containing reactive properties.
 	setup() {
-		// The reactive() function creates a reactive object that will be used to store the component's data.
-		// The state object contains two properties, name and age, both of which are reactive.
-		const state = reactive({
-			name: 'Juraj',
-			age: 25 as string | number
-		});
+		// The ref() function creates a reference to a value that can be reactive. In this case, name is a reference to the string value "Juraj" and age is a reference to the number value 25.
+		const name = ref('Juraj');
+		const age = ref<number | string>(25);
 
-		state.name = 'Jurco';
+		// The age.value and name.value lines update the values of age and name, respectively. The .value syntax is used to access the value of the reference.
+		age.value = 10;
+		name.value = 'Linda';
 
-		// The toRefs() function is used to convert the reactive state object to a plain object with reactive properties. This allows us to use the state properties in the template section.
-		return { ...toRefs(state) };
+		// The return { name, age } line returns an object containing the name and age references.
+		return { name, age };
 	},
 
 	// The methods object contains two functions, changeName() and changeAge(), which are used to change the name and age properties of the state object.
